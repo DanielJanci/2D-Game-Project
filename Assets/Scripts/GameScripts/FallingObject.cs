@@ -7,19 +7,24 @@ using UnityEngine;
 
 public class FallingObject : MonoBehaviour, IPoolable
 {
-    public float minSpeed = 5f;
-    public float maxSpeed = 10f;
-
+    private float _minSpeed;
+    private float _maxSpeed;
+    private float _secondsToMaxDifficulty;
     private float _despawnHeight;
     private float _currentSpeed;
     private bool _isGameOver;
-    private DifficultyManager _difficultyManager;
+    private TimeManager _timeManager;
+    private GameDataManager _gameDataManager;
 
     private void Start()
      {
          Player.OnPlayerDeath += GameOver;
          _isGameOver = false;
-         _difficultyManager = FindObjectOfType<DifficultyManager>(); 
+         _timeManager = FindObjectOfType<TimeManager>();
+         _gameDataManager = FindObjectOfType<GameDataManager>();
+         _minSpeed = _gameDataManager.DifficultyData.minObstacleSpeed;
+         _maxSpeed = _gameDataManager.DifficultyData.maxObstacleSpeed;
+         _secondsToMaxDifficulty = _gameDataManager.DifficultyData.secondsToMaxDifficulty;
          _despawnHeight = -Camera.main.orthographicSize - transform.localScale.x;
      }
 
@@ -28,7 +33,7 @@ public class FallingObject : MonoBehaviour, IPoolable
     {
         if (!PauseResume.IsGamePaused)
         {
-            _currentSpeed = Mathf.Lerp(minSpeed, maxSpeed, _difficultyManager.GetDifficultyPercent());
+            _currentSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, Mathf.Clamp01(_timeManager.currentLevelTime / _secondsToMaxDifficulty));
             transform.Translate(Vector3.down * (_currentSpeed * Time.deltaTime),Space.World);
         }
         

@@ -50,6 +50,7 @@ MonoBehaviour:
   buttonClickSource: {fileID: 1199827267651374771}
   coinCollectSource: {fileID: -6969031886571549255}
   gameOverSource: {fileID: 4496910307165215398}
+  audioSources: []
 --- !u!82 &1199827267651374771
 AudioSource:
   m_ObjectHideFlags: 0

@@ -127,8 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpeed: 5
   maxSpeed: 11
-  timeManager: {fileID: 4397528756190671956, guid: 87f3111e6d6992341bc75035b2ccd88b, type: 3}
-  difficultyManager: {fileID: 987141458947674518, guid: 7d7003615f6f0064ca909bd23f6e2934, type: 3}
 --- !u!114 &8410854281111483238
 MonoBehaviour:
   m_ObjectHideFlags: 0

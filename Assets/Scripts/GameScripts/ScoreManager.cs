@@ -3,83 +3,68 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int currentScore;
-    public int recordScore;
-    public DataManager dataManager;
-
     public TMP_Text currentScoreText;
     public TMP_Text finalScoreText;
     public TMP_Text recordScoreText;
-    
+
+    private GameDataManager _gameDataManager;
+    private Dictionary<string, string> _sceneNameToLevelScoreName;
+    private string _currentLevelScoreName;
+    private int _recordScore;
+    private int _currentScore;
+
     private void Start()
     {
-        LoadRecordScore();
-        currentScore = 0;
-        currentScoreText.text = $"Score: {currentScore}";
+        _sceneNameToLevelScoreName = new Dictionary<string, string>()
+        {
+            {"Level_01", "ScoreLevel01"},
+            {"Level_02", "ScoreLevel02"},
+            {"Level_03", "ScoreLevel03"},
+        };
+        
+        _gameDataManager = FindObjectOfType<GameDataManager>();
+        _currentLevelScoreName = _sceneNameToLevelScoreName[SceneManager.GetActiveScene().name];
+        _recordScore = _gameDataManager.RecordScoreData.recordScores[_currentLevelScoreName].StatValue;
+
+        currentScoreText.text = $"Score: {_currentScore}";
         Player.OnPlayerDeath += ShowLevelOver;
         Player.OnCoinCollected += UpdateCurrentScore;
-    }
-
-    private void LoadRecordScore()
-    {
-        dataManager.Load();
-        if (SceneManager.GetActiveScene().name == "Level_01")
-        {
-            recordScore = dataManager.Data.recordLevel01;
-        }
-        else if(SceneManager.GetActiveScene().name == "Level_02")
-        {
-            recordScore = dataManager.Data.recordLevel02;
-        }
-        else if(SceneManager.GetActiveScene().name == "Level_03")
-        {
-            recordScore = dataManager.Data.recordLevel03;
-        }
     }
     
     private void SaveRecordScore()
     {
-        if (currentScore > recordScore)
+        if (_currentScore > _recordScore)
         {
-            recordScore = currentScore;
-            if (SceneManager.GetActiveScene().name == "Level_01")
-            {
-                dataManager.Data.recordLevel01 = recordScore;
-            }
-            else if(SceneManager.GetActiveScene().name == "Level_02")
-            {
-                dataManager.Data.recordLevel02 = recordScore;
-            }
-            else if(SceneManager.GetActiveScene().name == "Level_03")
-            {
-                dataManager.Data.recordLevel03 = recordScore;
-            }
-            dataManager.Save();
+            _recordScore = _currentScore;
+            _gameDataManager.UpdateLocalScoreAndLeadboardData(_recordScore, _currentLevelScoreName);
         }
-        
     }
 
     private void UpdateCurrentScore()
     {
         AudioManager.OnCoinCollect?.Invoke();
-        currentScore++;
-        currentScoreText.text = $"Score: {currentScore}";
+        _currentScore++;
+        currentScoreText.text = $"Score: {_currentScore}";
     }
     
     private void ShowLevelOver()
     {
         AudioManager.OnGameOver?.Invoke();
         SaveRecordScore();
-        finalScoreText.text = $"Score: {currentScore}";
-        recordScoreText.text = $"Record: {recordScore}";
+        
+        finalScoreText.text = $"Score: {_currentScore}";
+        recordScoreText.text = $"Record: {_recordScore}";
         gameObject.SetActive(true);
     }
 
     private void OnDestroy()
     {
+        _gameDataManager.AddCoinsToInventoryPLayFabData(_currentScore);
+        _gameDataManager.UpdatePlayFabLeaderboard(_currentLevelScoreName);
         Player.OnPlayerDeath -= ShowLevelOver;
         Player.OnCoinCollected -= UpdateCurrentScore;
     }
@@ -88,12 +73,6 @@ public class ScoreManager : MonoBehaviour
     {
         AudioManager.OnButtonClick?.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    
-    public void OnLevelSelectButton()
-    {
-        AudioManager.OnButtonClick?.Invoke();
-        SceneManager.LoadScene("LevelSelector");
     }
 
     public void OnMenuButton()

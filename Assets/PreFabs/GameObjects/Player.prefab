@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 68176609c52a3ec42af28553ff75b6da, type: 2}
+  - {fileID: 2100000, guid: e37a7a1ca7b363f418b55ce4f53238db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1320d15d56c6eeb4fb9d8a67c9ef4e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  maxCoins: 10
+  speed: 10
+  playerMaterial: {fileID: 2100000, guid: e37a7a1ca7b363f418b55ce4f53238db, type: 2}
 --- !u!61 &3694787942608462811
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
