@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.Json;
-using PlayFab.SharedModels;
-using UnityEditor.SceneManagement;
+using Unity.VisualScripting;
 using UnityEngine.Events;
 
 public class GameDataManager : MonoBehaviour
@@ -152,29 +148,28 @@ public class GameDataManager : MonoBehaviour
         {
             if (result.Data.TryGetValue("secondsToMaxDifficulty", out var secondsToMaxDifficultyValue))
             {
-                _difficultyData.secondsToMaxDifficulty = float.Parse(secondsToMaxDifficultyValue);
+                _difficultyData.secondsToMaxDifficulty = float.Parse(secondsToMaxDifficultyValue, CultureInfo.InvariantCulture.NumberFormat);
             }
             if (result.Data.TryGetValue("minObstacleSpeed", out var minObstacleSpeedValue))
             {
-                _difficultyData.minObstacleSpeed = float.Parse(minObstacleSpeedValue);
+                _difficultyData.minObstacleSpeed = float.Parse(minObstacleSpeedValue, CultureInfo.InvariantCulture.NumberFormat);
             }
             if (result.Data.TryGetValue("maxObstacleSpeed", out var maxObstacleSpeedValue))
             {
-                _difficultyData.maxObstacleSpeed = float.Parse(maxObstacleSpeedValue);
+                _difficultyData.maxObstacleSpeed = float.Parse(maxObstacleSpeedValue, CultureInfo.InvariantCulture.NumberFormat);
             }
             if (result.Data.TryGetValue("startIntervalBetweenSpawns", out var startIntervalBetweenSpawnsValue))
             {
-                _difficultyData.startIntervalBetweenSpawns = float.Parse(startIntervalBetweenSpawnsValue);
+                _difficultyData.startIntervalBetweenSpawns = float.Parse(startIntervalBetweenSpawnsValue, CultureInfo.InvariantCulture.NumberFormat);
             }
             if (result.Data.TryGetValue("endIntervalBetweenSpawns", out var endIntervalBetweenSpawnsValue))
             {
-                _difficultyData.endIntervalBetweenSpawns = float.Parse(endIntervalBetweenSpawnsValue);
+                _difficultyData.endIntervalBetweenSpawns = float.Parse(endIntervalBetweenSpawnsValue, CultureInfo.InvariantCulture.NumberFormat);
             }
             if (result.Data.TryGetValue("playerSpeed", out var playerSpeedValue))
             {
-                _difficultyData.playerSpeed = float.Parse(playerSpeedValue);
+                _difficultyData.playerSpeed = float.Parse(playerSpeedValue, CultureInfo.InvariantCulture.NumberFormat);
             }
-            Debug.Log("Title data loaded.");
         }
     }
     private void OnGetTitleDataError(PlayFabError error)

@@ -65,7 +65,8 @@ public class LeaderboardUI : MonoBehaviour
         AudioManager.OnButtonClick?.Invoke();
         rowsParentLevel01.SetActive(false);
         rowsParentLevel02.SetActive(true);
-        rowsParentLevel03.SetActive(false);    }
+        rowsParentLevel03.SetActive(false);    
+    }
     
     public void OnLevel03Button()
     {
@@ -109,6 +110,6 @@ public class LeaderboardUI : MonoBehaviour
     public void OnReturnButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

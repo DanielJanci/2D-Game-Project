@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
@@ -15,12 +16,13 @@ public class PlayerNicknameUI : MonoBehaviour
     private void Start()
     {
         _gameDataManager = FindObjectOfType<GameDataManager>();
+        nicknameInput.characterLimit = 8;
     }
 
     public void OnSaveNameButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        if (nicknameInput.text.Length > 0)
+        if (Regex.IsMatch(nicknameInput.text, "^[a-zA-Z0-9]*$") && nicknameInput.text.Length > 0)
         {
             _gameDataManager.UpdatePlayFabUserName(nicknameInput.text);
         }

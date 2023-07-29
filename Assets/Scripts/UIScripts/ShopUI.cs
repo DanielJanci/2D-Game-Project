@@ -80,6 +80,6 @@ public class ShopUI : MonoBehaviour
     public void OnReturnButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

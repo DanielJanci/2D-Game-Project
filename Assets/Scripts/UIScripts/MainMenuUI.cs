@@ -49,35 +49,35 @@ public class MainMenuUI : MonoBehaviour
     public void OnStartButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        levelSelectorCanvas.SetActive(true);
+        //levelSelectorCanvas.SetActive(true);
         OnStartClicked?.Invoke();
     }
     
     public void OnShopButton()
     { 
        AudioManager.OnButtonClick?.Invoke();
-       shopCanvas.SetActive(true);
+       //shopCanvas.SetActive(true);
        OnShopClicked?.Invoke();
     }
     
     public void OnLeaderBoardButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        leaderboardCanvas.SetActive(true);
+        //leaderboardCanvas.SetActive(true);
         OnLeaderboardClicked?.Invoke();
     }
     
     public void OnSettingsButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        settingsCanvas.SetActive(true);
+        //settingsCanvas.SetActive(true);
         OnSettingsClicked?.Invoke();
     }
     
     public void OnInventoryButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        inventoryCanvas.SetActive(true);
+        //inventoryCanvas.SetActive(true);
         OnInventoryClicked?.Invoke();
     }
     

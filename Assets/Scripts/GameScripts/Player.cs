@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         
         float playerHalfWidth = transform.localScale.x / 2f;
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize - playerHalfWidth;
+        PauseResume.ResumeGame();
         _movementEnabled = true;
     }
     
@@ -44,26 +45,29 @@ public class Player : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 nextPosition = Vector3.zero;
             var t = transform;
-            
-            if(mousePosition.x > 1)
-            {
-                nextPosition = t.position + Vector3.right * (_speed * Time.deltaTime);
-            }
 
-            else if (mousePosition.x < 1)
+            if (mousePosition.y < 4)
             {
-                nextPosition = t.position + Vector3.right * (-_speed * Time.deltaTime);
-            }
+                if(mousePosition.x > 0)
+                {
+                    nextPosition = t.position + Vector3.right * (_speed * Time.deltaTime);
+                }
+
+                else if (mousePosition.x < 0)
+                {
+                    nextPosition = t.position + Vector3.right * (-_speed * Time.deltaTime);
+                }
             
-            if (nextPosition.x <= -_screenHalfWidth)
-            {
-                nextPosition = new Vector3(-_screenHalfWidth, t.position.y);
+                if (nextPosition.x <= -_screenHalfWidth)
+                {
+                    nextPosition = new Vector3(-_screenHalfWidth, t.position.y);
+                }
+                if (nextPosition.x >= _screenHalfWidth)
+                {
+                    nextPosition = new Vector3(_screenHalfWidth, t.position.y);
+                }
+                t.position = Vector3.Lerp(t.position, nextPosition, 50 * Time.deltaTime);   
             }
-            if (nextPosition.x >= _screenHalfWidth)
-            {
-                nextPosition = new Vector3(_screenHalfWidth, t.position.y);
-            }
-            t.position = Vector3.Lerp(t.position, nextPosition, 100 * Time.deltaTime);
         }
     }
     

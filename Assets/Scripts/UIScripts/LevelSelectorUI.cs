@@ -28,10 +28,10 @@ public class LevelSelectorUI : MonoBehaviour
         MainMenuUI.OnStartClicked += LoadAllRecordScores;
     }
 
-    public void OnMenuButton()
+    public void OnReturnButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private IEnumerator GetLoadedRecordScore(string level)

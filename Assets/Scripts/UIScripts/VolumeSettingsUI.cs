@@ -39,7 +39,7 @@ public class VolumeSettingsUI : MonoBehaviour
     {
         _audioManager.UpdateVolume(volumeSlider.value);
         AudioManager.OnButtonClick?.Invoke();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     
