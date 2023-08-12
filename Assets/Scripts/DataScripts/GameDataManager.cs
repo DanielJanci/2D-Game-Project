@@ -115,16 +115,15 @@ public class GameDataManager : MonoBehaviour
     
     public void UpdatePlayFabUserName(string newName)
     {
-        _userData.userDisplayName = newName;
-
         var request = new UpdateUserTitleDisplayNameRequest
         {
-            DisplayName = _userData.userDisplayName
+            DisplayName = newName
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnNicknameUpdateSuccess, OnNicknameUpdateError);
     }
     private void OnNicknameUpdateSuccess(UpdateUserTitleDisplayNameResult result)
     {
+        _userData.userDisplayName = result.DisplayName;
         Debug.Log("Display name updated.");
     }
 

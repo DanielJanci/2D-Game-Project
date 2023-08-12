@@ -21,6 +21,8 @@ public class MainMenuUI : MonoBehaviour
     public static UnityAction OnStartClicked;
     public static UnityAction OnInventoryClicked;
     public static UnityAction OnSettingsClicked;
+    public static UnityAction OnTutorialClicked;
+    
 
     private GameDataManager _gameDataManager;
     private void Start()
@@ -49,36 +51,36 @@ public class MainMenuUI : MonoBehaviour
     public void OnStartButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        //levelSelectorCanvas.SetActive(true);
         OnStartClicked?.Invoke();
     }
     
     public void OnShopButton()
     { 
        AudioManager.OnButtonClick?.Invoke();
-       //shopCanvas.SetActive(true);
        OnShopClicked?.Invoke();
     }
     
     public void OnLeaderBoardButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        //leaderboardCanvas.SetActive(true);
         OnLeaderboardClicked?.Invoke();
     }
     
     public void OnSettingsButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        //settingsCanvas.SetActive(true);
         OnSettingsClicked?.Invoke();
     }
     
     public void OnInventoryButton()
     {
         AudioManager.OnButtonClick?.Invoke();
-        //inventoryCanvas.SetActive(true);
         OnInventoryClicked?.Invoke();
+    }
+    public void OnTutorialButton()
+    {
+        AudioManager.OnButtonClick?.Invoke();
+        OnTutorialClicked?.Invoke();
     }
     
     public void OnQuitButton()
