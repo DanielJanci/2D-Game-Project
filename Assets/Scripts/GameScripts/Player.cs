@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 {
     public static UnityAction OnPlayerDeath;
     public static UnityAction OnCoinCollected;
+    public static UnityAction OnGameStarted;
     public Material playerMaterial;
 
     private float _speed;
@@ -20,12 +21,15 @@ public class Player : MonoBehaviour
     
     private void Start()
     {
+        
         _gameDataManager = FindObjectOfType<GameDataManager>();
         playerMaterial.color = _gameDataManager.UserData.currentPlayerColor;
         _speed = _gameDataManager.DifficultyData.playerSpeed;
         
         float playerHalfWidth = transform.localScale.x / 2f;
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize - playerHalfWidth;
+        
+        OnGameStarted?.Invoke();
         PauseResume.ResumeGame();
         _movementEnabled = true;
     }
@@ -71,21 +75,21 @@ public class Player : MonoBehaviour
         }
     }
     
-    private void PCMovement()
-    {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float velocity = inputX * _speed;
-        var t = transform;
-        t.Translate(Vector2.right * (velocity * Time.deltaTime));
-        if (t.position.x <= -_screenHalfWidth)
-        {
-            t.position = new Vector3(-_screenHalfWidth, t.position.y);
-        }
-        if (t.position.x >= _screenHalfWidth)
-        {
-            t.position = new Vector3(_screenHalfWidth, t.position.y);
-        }
-    }
+    // private void PCMovement()
+    // {
+    //     float inputX = Input.GetAxisRaw("Horizontal");
+    //     float velocity = inputX * _speed;
+    //     var t = transform;
+    //     t.Translate(Vector2.right * (velocity * Time.deltaTime));
+    //     if (t.position.x <= -_screenHalfWidth)
+    //     {
+    //         t.position = new Vector3(-_screenHalfWidth, t.position.y);
+    //     }
+    //     if (t.position.x >= _screenHalfWidth)
+    //     {
+    //         t.position = new Vector3(_screenHalfWidth, t.position.y);
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D triggerCollider)
     {

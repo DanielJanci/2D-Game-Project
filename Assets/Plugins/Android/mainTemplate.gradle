@@ -12,10 +12,10 @@
             url "https://maven.google.com"
         }
         maven {
-            url "https://android-sdk.is.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9
+            url "https://android-sdk.is.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16
         }
         maven {
-            url "https://maven.google.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17, Assets/IronSource/Editor/IronSourceSDKDependencies.xml:25
+            url "https://maven.google.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17, Assets/IronSource/Editor/IronSourceSDKDependencies.xml:25, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8
         }
         mavenLocal()
         jcenter()
@@ -29,8 +29,10 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'com.google.android.gms:play-services-ads:22.2.0' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17
     implementation 'com.google.android.gms:play-services-basement:18.1.0' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:25
+    implementation 'com.ironsource.adapters:admobadapter:4.3.39' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16
     implementation 'com.ironsource.sdk:mediationsdk:7.3.1.1' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9
 // Android Resolver Dependencies End
 **DEPS**}
