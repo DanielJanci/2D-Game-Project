@@ -8,6 +8,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using Unity.VisualScripting;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameDataManager : MonoBehaviour
 {
@@ -80,6 +81,34 @@ public class GameDataManager : MonoBehaviour
         LoadShopData();
     }
     
+    
+    /* DELETE ACCOUNT */
+    public void DeleteMasterPLayerAccount()
+    {
+        var request = new ExecuteCloudScriptRequest
+        {
+            FunctionName = "deleteMasterPlayerAccount",
+            FunctionParameter = new
+            {
+                playerId = _userData.userPlayFabId
+            }
+        };
+        PlayFabClientAPI.ExecuteCloudScript(request, OnDeleteMasterPLayerAccountResult, OnDeleteMasterPLayerAccountError);
+    }
+    private void OnDeleteMasterPLayerAccountResult(ExecuteCloudScriptResult result)
+    {
+        Debug.Log("Account deletion successful: " + result.FunctionResult);
+        Application.Quit();
+    }
+    private void OnDeleteMasterPLayerAccountError(PlayFabError error)
+    {
+        Debug.LogError("Account deletion failed: " + error.ErrorMessage);
+    }
+
+
+
+
+
     /* USER DATA */
     private void LoginAndGetUserData()
     {

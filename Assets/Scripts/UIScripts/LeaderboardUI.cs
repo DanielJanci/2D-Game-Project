@@ -88,15 +88,20 @@ public class LeaderboardUI : MonoBehaviour
         {
             GameObject newGameObject = Instantiate(rowPreFab, _rowsParents[level]);
             TMP_Text[] texts = newGameObject.GetComponentsInChildren<TMP_Text>();
-            texts[0].text = (entry.Position + 1).ToString();
-            texts[1].text = entry.DisplayName;
-            texts[2].text = entry.StatValue.ToString();
+            
             if (entry.PlayFabId == _gameDataManager.UserData.userPlayFabId)
             {
+                if (entry.DisplayName == null)
+                {
+                    entry.DisplayName = _gameDataManager.UserData.userDisplayName;
+                }
                 texts[0].color = Color.cyan;
                 texts[1].color = Color.cyan;
                 texts[2].color = Color.cyan;
             }
+            texts[0].text = (entry.Position + 1).ToString();
+            texts[1].text = entry.DisplayName;
+            texts[2].text = entry.StatValue.ToString();
         }
     }
     

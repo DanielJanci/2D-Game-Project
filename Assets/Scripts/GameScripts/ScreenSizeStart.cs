@@ -20,7 +20,6 @@ public class ScreenSizeStart : MonoBehaviour
     {
         double wantedRatio = (double)1920 / 1080;
         double currentRatio = (double)Screen.currentResolution.height / Screen.currentResolution.width;
-        Debug.Log(canvasScaler.matchWidthOrHeight);
         if (currentRatio < wantedRatio)
         {
             canvasScaler.matchWidthOrHeight = 1;
@@ -28,14 +27,6 @@ public class ScreenSizeStart : MonoBehaviour
         else if (currentRatio > wantedRatio){
             canvasScaler.matchWidthOrHeight = 0;
         }
-        else
-        {
-            return;
-        }
-        Debug.Log(wantedRatio);
-        Debug.Log(currentRatio);
-        Debug.Log(canvasScaler.matchWidthOrHeight);
-
     }
     
 }

@@ -5,16 +5,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VolumeSettingsUI : MonoBehaviour
+public class SettingsUI : MonoBehaviour
 {
     public TMP_Text volumeText;
     public Slider volumeSlider;
     
     private AudioManager _audioManager;
-    
+    private GameDataManager _gameDataManager;
+
     public void Start()
     {
         _audioManager = FindObjectOfType<AudioManager>();
+        _gameDataManager = FindObjectOfType<GameDataManager>();
         MainMenuUI.OnSettingsClicked += ShowSettingsUI;
     }
 
@@ -30,6 +32,22 @@ public class VolumeSettingsUI : MonoBehaviour
         volumeText.text = $"VOLUME: {Math.Round(sliderValue * 100)}%";
     }
 
+    public void OnDeleteAccountButton()
+    {
+        AudioManager.OnButtonClick?.Invoke();
+    }
+
+    public void OnConfirmDeleteAccountButton()
+    {
+        AudioManager.OnButtonClick?.Invoke();
+        _gameDataManager.DeleteMasterPLayerAccount();
+    }
+
+    public void OnCancelDeleteAccountButton()
+    {
+        AudioManager.OnButtonClick?.Invoke();
+    }
+    
     private void OnDestroy()
     {
         MainMenuUI.OnSettingsClicked -= ShowSettingsUI;
